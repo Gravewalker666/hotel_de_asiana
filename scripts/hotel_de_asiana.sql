@@ -572,7 +572,7 @@ DROP TABLE IF EXISTS `hotel_de_asiana`.`receptionist_view`;
 USE `hotel_de_asiana`;
 CREATE  OR REPLACE VIEW `receptionist_view` AS 
 	SELECT 
-		e.id as employee_id, r.id as employee_id, e.name, e.gender, e.contact_no, e.start_date, e.salary_grade 
+		e.id as employee_id, r.id as receptionist_id, e.name, e.gender, e.contact_no, e.start_date, e.salary_grade 
 	FROM employee e JOIN 
 		receptionist r ON e.id = r.employee_id
 ;
@@ -660,7 +660,7 @@ USE `hotel_de_asiana`;
 CREATE  OR REPLACE VIEW `facility_view` AS
 	SELECT 
 		f.*, m.manager_id as manager_id, m.name as manager_name
-	FROM facility 
+	FROM facility f
     JOIN facility_manage r ON f.id = r.facility_id
     JOIN manager_view m ON m.manager_id = r.management_id
 ;
