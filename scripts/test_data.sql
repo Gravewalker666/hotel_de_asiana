@@ -1,3 +1,4 @@
+USE hotel_de_asiana;
 -- Insert rows into table 'food'
 INSERT INTO food
 VALUES
@@ -187,7 +188,7 @@ VALUES
 );
 
 -- Insert rows into table 'speciality_area'
-INSERT INTO speciality_area
+INSERT INTO specility_area
 VALUES
 ( -- first row: values for the columns
  'caterer', 1
@@ -211,7 +212,7 @@ VALUES
 );
 
 -- Insert rows into table 'speciality_style'
-INSERT INTO speciality_style
+INSERT INTO specility_style
 VALUES
 ( -- first row: values for the columns
  1, 'french_service'

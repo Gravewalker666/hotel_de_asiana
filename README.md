@@ -33,4 +33,10 @@ Note: Enter your mysql root password when prompt
 ```
 > php -S localhost:8080
 ```
-Open http://localhost:8080 on a web-browser to use the app
+
+5. Add test data (Optional)
+```
+> mysql -u root -p < scripts/test_data.sql
+```
+
+**Open http://localhost:8080 on a web-browser to use the app**
