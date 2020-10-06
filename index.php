@@ -13,7 +13,7 @@
                                 <option value="manager">Manager</option>
                                 <option value="receptionist">Receptionist</option>
                                 <option value="chef">Chef</option>
-                                <option value="clean">Cleaning Staff Member</option>
+                                <option value="cleaning">Cleaning Staff Member</option>
                                 <option value="guest">Guest</option>
                             </select>
                         </div>

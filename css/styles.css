@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
 body {
     font-family: 'Noto Sans JP', sans-serif;
+    font-size: 13px;
 }
 .font-sanista {
     font-family: 'Sansita Swashed', cursive;
