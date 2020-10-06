@@ -29,13 +29,36 @@
         </div>
     </div>
     <div class="col-10 bg-light">
-        <div class="container">
-<?php
-    $result = $conn->query('SELECT * FROM room');
-    while($row = $result->fetch_assoc()) {
-        echo "No: " . $row["no"]. " - Type: " . $row["type"]. " " . $row["location"]. "<br>";
-    }
-?>
+        <div class="mt-5">
+            <div class="bg-white p-4 rounded-xl w-50">
+                <table class="table table-borderless w-100">
+                    <thead>
+                        <tr>
+                            <th scope="col">Room No</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        $result = $conn->query('SELECT * FROM room');
+                        while($row = $result->fetch_assoc()) {
+                            echo "
+                            <tr>
+                                <th>".$row['no']."</th>
+                                <td>".$row['type']."</td>
+                                <td>".$row['status']."</td>
+                                <td>".$row['location']."</td>
+                                <td>".$row['rate']."</td>
+                            </tr>
+                            ";
+                        }
+                    ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

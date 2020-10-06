@@ -9,7 +9,7 @@
                     </h1>
                     <form class="pb-4" action="config.php" method="POST">
                         <div class="form-select">
-                            <select name="user" class="form-control">
+                            <select name="user" class="form-control select" style="border-radius: 1.75rem;">
                                 <option value="manager">Manager</option>
                                 <option value="receptionist">Receptionist</option>
                                 <option value="chef">Chef</option>
@@ -18,7 +18,7 @@
                             </select>
                         </div>
                         <br>
-                        <input type="password" name="password" placeholder="Password" class="form-control rounded-xl" />
+                        <input type="password" name="password" placeholder="Password" class="form-control rounded-xl"  style="font-family: sans-serif;"/>
                         <br>
                         <?php 
                             if(isset($_GET['error']) && $_GET['error'] == 422) {
