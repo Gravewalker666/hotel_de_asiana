@@ -1,6 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Sansita+Swashed:wght@300;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Sansita+Swashed:wght@300;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Noto Sans JP', sans-serif;
 }
 .font-sanista {
     font-family: 'Sansita Swashed', cursive;
@@ -10,4 +11,7 @@ body {
 }
 .rounded-xl {
     border-radius: 2rem !important;
+}
+.text-muted-light {
+    color: #c2c6cc !important;
 }

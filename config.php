@@ -15,6 +15,7 @@
       $_SESSION['password'] = $password;
       header('Location: dashboard');
     } catch(PDOException $e) {
+      session_unset();
       header('Location: index.php?error=422');
     }
 ?>
