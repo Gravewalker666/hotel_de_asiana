@@ -1,4 +1,4 @@
-# Hotel de Asiana
+# Hotel De Asiana
 SCS 1203 - Take Home Group Assignment
 
 ## Setup Local Environment
@@ -19,12 +19,18 @@ SCS 1203 - Take Home Group Assignment
 2. Create database
 ```
 > cd hotel_de_asiana
-> mysql -u root -p < scripts\hotel_de_asiana.sql
+> mysql -u root -p < scripts/hotel_de_asiana.sql
 ```
 Note: Enter your mysql root password when prompt
 
 3. Create users and grant privileges
 ```
-> mysql -u root -p < scripts\user_privileges.sql
+> mysql -u root -p < scripts/user_privileges.sql
 ```
 Note: Enter your mysql root password when prompt
+
+4. Deploy app to the server
+```
+> php -S localhost:8080
+```
+Open http://localhost:8080 on a web-browser to use the app
