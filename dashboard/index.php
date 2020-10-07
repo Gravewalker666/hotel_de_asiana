@@ -20,12 +20,12 @@
     }
 ?>
 <div class="row vh-100 w-100">
-    <div class="col-2">
+    <div class="col-2 bg-dark-blue text-white">
         <div class="sticky-top">
             <h4 class="font-sanista text-warning pt-5 p-2 text-center">
                 Hotel De Asiana
             </h4>
-            <h6 class="text-muted text-center text-capitalize">
+            <h6 class="text-center text-capitalize">
                 <?php echo $_SESSION['user'] ?> dashboard
             </h6>
             <hr class="mx-5">

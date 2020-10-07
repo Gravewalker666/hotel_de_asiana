@@ -1,10 +1,10 @@
 <?php require 'includes/header.php'; ?>
-<div class="bg-light">
+<div class="bg-dark-blue">
     <div class="container">
         <div class="row vh-100 align-items-center justify-content-center text-center">
             <div class="col-md-4">
                 <div class="shadow-lg rounded-xl p-4 bg-white">
-                    <h1 class="font-sanista display-4 text-warning pt-5 pb-4">
+                    <h1 class="font-sanista display-4 text-warning pt-4 pb-4">
                         Hotel De Asiana
                     </h1>
                     <form class="pb-4" action="config.php" method="POST">
