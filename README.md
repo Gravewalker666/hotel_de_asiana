@@ -1,6 +1,8 @@
 # Hotel De Asiana
 SCS 1203 - Take Home Group Assignment
 
+Hotel De Asiana is a php based web app designed to demonstrate the capabilities of sql user role permmisions.  
+
 ## Setup Local Environment
 
 ### Prerequisites
