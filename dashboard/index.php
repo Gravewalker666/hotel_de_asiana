@@ -122,33 +122,31 @@
                         ?>
                         <label class="mt-1">Room type</label>
                         <div class="form-select">
-                            <select name="type" class="form-control select"
-                                value="
-                                <?php 
-                                    if (isset($_GET['edit-room'])) {
-                                        echo $room['type'];   
-                                    }
-                                ?>
-                                "
-                            >
-                                <option value="Single">Single</option>
-                                <option value="Family">Family</option>
+                            <select name="type" class="form-control select">
+                                <option value="Single"
+                                    <?php if (isset($_GET['edit-room']) && $room['type'] == 'Single') echo 'selected'?>>
+                                    Single
+                                </option>
+                                <option value="Family"
+                                    <?php if (isset($_GET['edit-room']) && $room['type'] == 'Family') echo 'selected'?>>
+                                    Family
+                                </option>
                             </select>
                         </div>
                         <label class="mt-1">Room status</label>
                         <div class="form-select">
                             <select name="status" class="form-control select">
-                                <option value="Vacant">Vacant</option>
-                                <option value="Occupied">Occupied</option>
+                                <option value="Vacant" <?php if (isset($_GET['edit-room']) && $room['status'] == 'Vacant') echo 'selected'?>>Vacant</option>
+                                <option value="Occupied" <?php if (isset($_GET['edit-room']) && $room['status'] == 'Occupied') echo 'selected'?>>Occupied</option>
                             </select>
                         </div>
                         <label class="mt-1">Location</label>
                         <div class="form-select">
                             <select name="location" class="form-control select">
-                                <option value="Ground Floor">Ground Floor</option>
-                                <option value="First Floor">First Floor</option>
-                                <option value="Second Floor">Second Floor</option>
-                                <option value="Third Floor">Third Floor</option>
+                                <option value="Ground Floor"    <?php if (isset($_GET['edit-room']) && $room['location'] == 'Ground Floor') echo 'selected'?>>Ground Floor</option>
+                                <option value="First Floor" <?php if (isset($_GET['edit-room']) && $room['location'] == 'First Floor') echo 'selected'?>>First Floor</option>
+                                <option value="Second Floor"    <?php if (isset($_GET['edit-room']) && $room['location'] == 'Second Floor') echo 'selected'?>>Second Floor</option>
+                                <option value="Third Floor" <?php if (isset($_GET['edit-room']) && $room['location'] == 'Third Floor') echo 'selected'?>>Third Floor</option>
                             </select>
                         </div>
                         <label class="mt-1">Rate</label>
@@ -214,18 +212,23 @@
                         />
                         <label class="mt-1">Food type</label>
                         <div class="form-select">
-                            <select name="type" class="form-control select"
-                                value="
-                                <?php 
-                                    if (isset($_GET['edit-food'])) {
-                                        echo $food['type'];   
-                                    }
-                                ?>
-                                "
-                            >
-                                <option value="Vegitarian">Vegitarian</option>
-                                <option value="American">American</option>
-                                <option value="Fast food">Fast food</option>
+                            <select name="type" class="form-control select">
+                                <option value="Vegitarian" 
+                                    <?php if (isset($_GET['edit-food']) && $food['type'] == 'Vegitarian') echo 'selected'?>>
+                                    Vegitarian
+                                </option>
+                                <option value="American"
+                                    <?php if (isset($_GET['edit-food']) && $food['type'] == 'American') echo 'selected'?>>
+                                    American
+                                </option>
+                                <option value="Fast food"
+                                    <?php if (isset($_GET['edit-food']) && $food['type'] == 'Fast food') echo 'selected'?>>
+                                    Fast food
+                                </option>
+                                <option value="Sri Lankan"
+                                    <?php if (isset($_GET['edit-food']) && $food['type'] == 'Sri Lankan') echo 'selected'?>>
+                                    Sri Lankan
+                                </option>
                             </select>
                         </div>
                         <label class="mt-1">Price</label>
@@ -327,8 +330,8 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Type</th>
                                 <th scope="col">Rate</th>
-                                <th scope="col">location</th>
-                                <th scope="col">manager</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">Manager</th>
                             </tr>
                         </thead>
                         <tbody>
