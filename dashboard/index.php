@@ -406,6 +406,52 @@
                         ?>
                         </tbody>
                     </table>
+                    <h5>Individual</h5>
+                    <table class="table table-borderless w-100">
+                        <thead>
+                            <tr>
+                                <th scope="col">nic</th>
+                                <th scope="col">name</th>
+                                <th scope="col">gender</th>
+                                <th scope="col">guest_id</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                            $result = $conn->query('SELECT * FROM individual');
+                            if ($result) {
+                                while($row = $result->fetch()) {
+                        ?>
+                                    <tr>
+                                        <th><?php echo $row['nic'] ?></th>
+                                        <td><?php echo $row['name'] ?></td>
+                                        <td><?php echo $row['gender'] ?></td>
+                                        <td><?php echo $row['guest_id'] ?></td>
+                                        <td>
+                                            <a 
+                                                class="text-decoration-none text-muted" 
+                                                href="../dashboard?edit-room=<?php echo $row['no']?>"
+                                            >
+                                                Edit
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a 
+                                                class="text-decoration-none text-muted" 
+                                                href="../dashboard/process.php?delete=true&id=<?php echo $row['no']?>&table=room&field=no"
+                                            >
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                        <?php
+                                }
+                            }else {
+                                echo "Bad request, access denied to access company data";
+                            }
+                        ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
