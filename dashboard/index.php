@@ -452,6 +452,52 @@
                         ?>
                         </tbody>
                     </table>
+					<h5>Family</h5>
+                    <table class="table table-borderless w-100">
+                        <thead>
+                            <tr>
+                                <th scope="col">Guest ID</th>
+                                <th scope="col">Head NIC</th>
+                                <th scope="col">Head Name</th>
+                                <th scope="col">Head Gender</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                            $result = $conn->query('SELECT * FROM Family');
+                            if ($result) {
+                                while($row = $result->fetch()) {
+                        ?>
+                                    <tr>
+                                        <th><?php echo $row['guest_id'] ?></th>
+                                        <td><?php echo $row['head_nic'] ?></td>
+                                        <td><?php echo $row['head_name'] ?></td>
+                                        <td><?php echo $row['head_gender'] ?></td>
+                                        <td>
+                                            <a 
+                                                class="text-decoration-none text-muted" 
+                                                href="../dashboard?edit-room=<?php echo $row['no']?>"
+                                            >
+                                                Edit
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a 
+                                                class="text-decoration-none text-muted" 
+                                                href="../dashboard/process.php?delete=true&id=<?php echo $row['no']?>&table=room&field=no"
+                                            >
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                        <?php
+                                }
+                            }else {
+                                echo "Bad request, access denied to access company data";
+                            }
+                        ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
