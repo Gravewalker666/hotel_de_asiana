@@ -177,7 +177,7 @@
                     </form>
                 </div>
                 <!-- Add/edit table food -->
-                <div class="col-4 bg-white p-4 rounded-xl mt-5 mr-5">
+                <div class="col-4 bg-white p-4 rounded-xl mt-5 mr-5" id="form-food">
                     <h4>
                         <?php 
                             if (isset($_GET['edit-food'])) {
@@ -270,7 +270,7 @@
                     </form>
                 </div>
                 <!-- Print table food -->
-                <div class="col-6 bg-white p-4 rounded-xl mt-5 mr-5">
+                <div class="col-6 bg-white p-4 rounded-xl mt-5 mr-5" id="table-food">
                     <h4>Food</h4>
                     <table class="table table-borderless w-100">
                         <thead>
@@ -297,7 +297,7 @@
                                         <td>
                                             <a 
                                                 class="text-decoration-none text-muted" 
-                                                href="../dashboard?edit-food=<?php echo $row['id']?>"
+                                                href="../dashboard?edit-food=<?php echo $row['id']?>#form-food"
                                             >
                                                 Edit
                                             </a>
@@ -321,7 +321,7 @@
                     </table>
                 </div>
                 <!-- Show view facility_view -->
-                <div class="col-7 bg-white p-4 rounded-xl mt-5 mr-5">
+                <div class="col-9 bg-white p-4 rounded-xl mt-5 mr-5">
                     <h4>Facilities</h4>
                     <table class="table table-borderless w-100">
                         <thead>
@@ -357,6 +357,217 @@
                         </tbody>
                     </table>
                 </div>
+                <!-- Add/edit table company -->
+                <div class="col-3 bg-white p-4 rounded-xl mt-5 mr-5" id="form-company">
+                    <h4>
+                        <?php 
+                            if (isset($_GET['edit-company'])) {
+                                $id = $_GET['edit-company'];
+                                $result = $conn->query('SELECT * FROM company WHERE id='.$id);
+                                $company = $result->fetch();
+                                echo "Edit";
+                            } else {
+                                echo "Add new company guest";
+                            }
+                        ?>
+                    </h4>
+                    <form class="py-2" action="dashboard/process.php" method="POST">
+                        <?php 
+                            if (isset($_GET['edit-company'])) {
+                        ?>
+                            <label>Guest id</label>
+                            <input value="<?php echo $company['id']?>" type="input" name="id" class="form-control rounded-xl form-input" readonly/>
+                            <label>Company id</label>
+                            <input value="<?php echo $_GET['edit-company']?>" type="input" name="id" class="form-control rounded-xl form-input" readonly/>
+                        <?php
+                            }
+                        ?>
+                        <label class="mt-1">Company</label>
+                        <input
+                            <?php
+                                if (isset($_GET['edit-company'])) {
+                            ?>
+                                value="<?php echo $company['name']?>"
+                            <?php
+                                }
+                            ?>
+                            type="input" name="name" class="form-control rounded-xl form-input" 
+                        />
+                        <label class="mt-1">Billing Address</label>
+                        <input
+                            <?php
+                                if (isset($_GET['edit-company'])) {
+                            ?>
+                                value="<?php echo $company['billing_address']?>"
+                            <?php
+                                }
+                            ?>
+                            type="input" name="billing_address" class="form-control rounded-xl form-input" 
+                        />
+                        <br>
+                        <input
+                            type="submit"
+                            <?php 
+                                if (isset($_GET['edit-company'])) {
+                                    echo 'name="edit-company"';
+                                    echo 'value="Save"';
+                                } else {
+                                    echo 'name="add-company"';
+                                    echo 'value="Add"';
+                                }
+                            ?>
+                            class="btn btn-warning text-white font-weight-bold rounded-xl py-1"
+                        />
+                    </form>
+                </div>
+                <!-- Add/edit table individual -->
+                <div class="col-3 bg-white p-4 rounded-xl mt-5 mr-5" id="form-individual">
+                    <h4>
+                        <?php 
+                            if (isset($_GET['edit-individual'])) {
+                                $id = $_GET['edit-individual'];
+                                $result = $conn->query('SELECT * FROM individual WHERE guest_id='.$id);
+                                $indi = $result->fetch();
+                                echo "Edit";
+                            } else {
+                                echo "Add new individual guest";
+                            }
+                        ?>
+                    </h4>
+                    <form class="py-2" action="dashboard/process.php" method="POST">
+                        <?php 
+                            if (isset($_GET['edit-individual'])) {
+                        ?>
+                            <label>Guest id</label>
+                            <input value="<?php echo $indi['guest_id']?>" type="input" name="guest_id" class="form-control rounded-xl form-input" readonly/>
+                        <?php
+                            }
+                        ?>
+                        <label class="mt-1">NIC</label>
+                        <input
+                            <?php
+                                if (isset($_GET['edit-individual'])) {
+                            ?>
+                                value="<?php echo $indi['nic']?>"
+                            <?php
+                                }
+                            ?>
+                            type="input" name="nic" class="form-control rounded-xl form-input" 
+                        />
+                        <label class="mt-1">Name</label>
+                        <input
+                            <?php
+                                if (isset($_GET['edit-individual'])) {
+                            ?>
+                                value="<?php echo $indi['name']?>"
+                            <?php
+                                }
+                            ?>
+                            type="input" name="name" class="form-control rounded-xl form-input" 
+                        />
+                        <label class="mt-1">Gender</label>
+                        <div class="form-select">
+                            <select name="gender" class="form-control select">
+                                <option value="M" 
+                                    <?php if (isset($_GET['edit-individual']) && $indi['gender'] == 'M') echo 'selected'?>>
+                                    Male
+                                </option>
+                                <option value="F"
+                                    <?php if (isset($_GET['edit-individual']) && $indi['gender'] == 'F') echo 'selected'?>>
+                                    Female
+                                </option>
+                            </select>
+                        </div>
+                        <br>
+                        <input
+                            type="submit"
+                            <?php 
+                                if (isset($_GET['edit-individual'])) {
+                                    echo 'name="edit-individual"';
+                                    echo 'value="Save"';
+                                } else {
+                                    echo 'name="add-individual"';
+                                    echo 'value="Add"';
+                                }
+                            ?>
+                            class="btn btn-warning text-white font-weight-bold rounded-xl py-1"
+                        />
+                    </form>
+                </div>
+                <!-- Add/edit table family -->
+                <div class="col-3 bg-white p-4 rounded-xl mt-5 mr-5" id="form-family">
+                    <h4>
+                        <?php 
+                            if (isset($_GET['edit-family'])) {
+                                $id = $_GET['edit-family'];
+                                $result = $conn->query('SELECT * FROM family WHERE guest_id='.$id);
+                                $fam = $result->fetch();
+                                echo "Edit";
+                            } else {
+                                echo "Add new family guest";
+                            }
+                        ?>
+                    </h4>
+                    <form class="py-2" action="dashboard/process.php" method="POST">
+                        <?php 
+                            if (isset($_GET['edit-family'])) {
+                        ?>
+                            <label>Guest id</label>
+                            <input value="<?php echo $fam['guest_id']?>" type="input" name="guest_id" class="form-control rounded-xl form-input" readonly/>
+                        <?php
+                            }
+                        ?>
+                        <label class="mt-1">Head NIC</label>
+                        <input
+                            <?php
+                                if (isset($_GET['edit-family'])) {
+                            ?>
+                                value="<?php echo $fam['head_nic']?>"
+                            <?php
+                                }
+                            ?>
+                            type="input" name="nic" class="form-control rounded-xl form-input" 
+                        />
+                        <label class="mt-1">Name</label>
+                        <input
+                            <?php
+                                if (isset($_GET['edit-family'])) {
+                            ?>
+                                value="<?php echo $fam['head_name']?>"
+                            <?php
+                                }
+                            ?>
+                            type="input" name="name" class="form-control rounded-xl form-input" 
+                        />
+                        <label class="mt-1">Gender</label>
+                        <div class="form-select">
+                            <select name="gender" class="form-control select">
+                                <option value="M" 
+                                    <?php if (isset($_GET['edit-family']) && $fam['head_gender'] == 'M') echo 'selected'?>>
+                                    Male
+                                </option>
+                                <option value="F"
+                                    <?php if (isset($_GET['edit-family']) && $fam['head_gender'] == 'F') echo 'selected'?>>
+                                    Female
+                                </option>
+                            </select>
+                        </div>
+                        <br>
+                        <input
+                            type="submit"
+                            <?php 
+                                if (isset($_GET['edit-family'])) {
+                                    echo 'name="edit-family"';
+                                    echo 'value="Save"';
+                                } else {
+                                    echo 'name="add-family"';
+                                    echo 'value="Add"';
+                                }
+                            ?>
+                            class="btn btn-warning text-white font-weight-bold rounded-xl py-1"
+                        />
+                    </form>
+                </div>
                 <!-- Print table guest -->
                 <div class="col-5 bg-white p-4 rounded-xl mt-5 mr-5">
 					<h4>Guest</h4>
@@ -379,14 +590,6 @@
                                         <td>
                                             <a 
                                                 class="text-decoration-none text-muted" 
-                                                href="../dashboard?edit-room=<?php echo $row['no']?>"
-                                            >
-                                                Edit
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a 
-                                                class="text-decoration-none text-muted" 
                                                 href="../dashboard/process.php?delete=true&id=<?php echo $row['id']?>&table=guest&field=id"
                                             >
                                                 Delete
@@ -402,7 +605,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-5 bg-white p-4 rounded-xl mt-5 mr-5">
+                <div class="col-5 bg-white p-4 rounded-xl mt-5 mr-5" id="table-company">
                     <h4>Company</h4>
                     <table class="table table-borderless w-100">
                         <thead>
@@ -427,17 +630,9 @@
                                         <td>
                                             <a 
                                                 class="text-decoration-none text-muted" 
-                                                href="../dashboard?edit-room=<?php echo $row['no']?>"
+                                                href="../dashboard?edit-company=<?php echo $row['id']?>#form-company"
                                             >
                                                 Edit
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a 
-                                                class="text-decoration-none text-muted" 
-                                                href="../dashboard/process.php?delete=true&id=<?php echo $row['no']?>&table=room&field=no"
-                                            >
-                                                Delete
                                             </a>
                                         </td>
                                     </tr>
@@ -450,7 +645,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-5 bg-white p-4 rounded-xl mt-5 mr-5">
+                <div class="col-5 bg-white p-4 rounded-xl mt-5 mr-5" id="table-individual">
                     <h4>Individual</h4>
                     <table class="table table-borderless w-100">
                         <thead>
@@ -475,17 +670,9 @@
                                         <td>
                                             <a 
                                                 class="text-decoration-none text-muted" 
-                                                href="../dashboard?edit-room=<?php echo $row['no']?>"
+                                                href="../dashboard?edit-individual=<?php echo $row['guest_id']?>#form-individual"
                                             >
                                                 Edit
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a 
-                                                class="text-decoration-none text-muted" 
-                                                href="../dashboard/process.php?delete=true&id=<?php echo $row['no']?>&table=room&field=no"
-                                            >
-                                                Delete
                                             </a>
                                         </td>
                                     </tr>
@@ -498,7 +685,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-5 bg-white p-4 rounded-xl mt-5 mr-5">
+                <div class="col-5 bg-white p-4 rounded-xl mt-5 mr-5" id="table-family">
 					<h4>Family</h4>
                     <table class="table table-borderless w-100">
                         <thead>
@@ -523,17 +710,9 @@
                                         <td>
                                             <a 
                                                 class="text-decoration-none text-muted" 
-                                                href="../dashboard?edit-room=<?php echo $row['no']?>"
+                                                href="../dashboard?edit-family=<?php echo $row['guest_id']?>#form-family"
                                             >
                                                 Edit
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a 
-                                                class="text-decoration-none text-muted" 
-                                                href="../dashboard/process.php?delete=true&id=<?php echo $row['no']?>&table=room&field=no"
-                                            >
-                                                Delete
                                             </a>
                                         </td>
                                     </tr>
