@@ -336,7 +336,7 @@
                         </thead>
                         <tbody>
                         <?php
-                            $result = $conn->query('SELECT * FROM facility_view');
+                            $result = $conn->query('SELECT * FROM facility_view ORDER BY id');
                             if ($result) {
                                 while($row = $result->fetch()) {
                         ?>
@@ -352,6 +352,56 @@
                                 }
                             }else {
                                 echo "Bad request, access denied to access facility_view data";
+                            }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Print table guest -->
+                <div class="col-6 bg-white p-4 rounded-xl mr-5">
+                    <h4>Guest</h4>
+                    <h5>Company</h5>
+                    <table class="table table-borderless w-100">
+                        <thead>
+                            <tr>
+                                <th scope="col">Guest ID</th>
+                                <th scope="col">Company ID</th>
+                                <th scope="col">Company</th>
+                                <th scope="col">Billing Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                            $result = $conn->query('SELECT * FROM company');
+                            if ($result) {
+                                while($row = $result->fetch()) {
+                        ?>
+                                    <tr>
+                                        <th><?php echo $row['guest_id'] ?></th>
+                                        <td><?php echo $row['id'] ?></td>
+                                        <td><?php echo $row['name'] ?></td>
+                                        <td><?php echo $row['billing_address'] ?></td>
+                                        <td>
+                                            <a 
+                                                class="text-decoration-none text-muted" 
+                                                href="../dashboard?edit-room=<?php echo $row['no']?>"
+                                            >
+                                                Edit
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a 
+                                                class="text-decoration-none text-muted" 
+                                                href="../dashboard/process.php?delete=true&id=<?php echo $row['no']?>&table=room&field=no"
+                                            >
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                        <?php
+                                }
+                            }else {
+                                echo "Bad request, access denied to access company data";
                             }
                         ?>
                         </tbody>
