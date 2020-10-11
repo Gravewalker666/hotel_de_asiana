@@ -63,24 +63,23 @@
             header('Location: ../dashboard?error="'.str_replace(PHP_EOL, '', $e).'"');
         }
     }
-    if (isset($_POST['add-food_order'])) {
-        $guest_id = $_POST['guest_id'];
-        $food_id = $_POST['food_id'];
-        $date = $_POST['date'];
+    if (isset($_POST['add-food-order'])) {
+        $guest_id = $_POST['guest'];
+        $food_id = $_POST['food'];
         try {
-            $conn->exec("INSERT INTO food_order(guest_id, food_id, date) VALUES ('$guest_id', '$food_id', '$date')");
-            header('Location: ../dashboard#table-food_order');
+            $conn->exec("INSERT INTO food_order(guest_id, food_id, date) VALUES ('$guest_id', '$food_id', NOW())");
+            header('Location: ../dashboard#table-food-order');
         }catch (PDOException $e) {
             header('Location: ../dashboard?error="'.str_replace(PHP_EOL, '', $e).'"');
         }
     }
-    if (isset($_POST['edit-food_order'])) {
-        $guest_id = $_POST['guest_id'];
-        $food_id = $_POST['food_id'];
+    if (isset($_POST['edit-food-order'])) {
+        $guest_id = $_POST['guest'];
+        $food_id = $_POST['food'];
         $date = $_POST['date'];
         try {
-            $conn->exec("UPDATE food SET guest_id='$guest_id', food_id='$food_id', date='$date' WHERE guest_id=$guest_id and food_id=$food_id and date=$date");
-            header('Location: ../dashboard#table-food_order');
+            $conn->exec("UPDATE food_order SET guest_id='$guest_id', food_id='$food_id' WHERE date='$date'");
+            header('Location: ../dashboard#table-food-order');
         }catch (PDOException $e) {
             header('Location: ../dashboard?error="'.str_replace(PHP_EOL, '', $e).'"');
         }
@@ -93,6 +92,15 @@
             $id = $conn->lastInsertId();
             $conn->exec("INSERT INTO company(name, billing_address, guest_id) VALUES ('$name', '$billing_address', $id)");
             header('Location: ../dashboard#table-company');
+        }catch (PDOException $e) {
+            header('Location: ../dashboard?error="'.str_replace(PHP_EOL, '', $e).'"');
+        }
+    }
+    if (isset($_GET['delete-food-order'])) {
+        $date = $_GET['date'];
+        try {
+            $conn->exec("DELETE FROM food_order WHERE date='$date'");
+            header('Location: ../dashboard#table-food-order');
         }catch (PDOException $e) {
             header('Location: ../dashboard?error="'.str_replace(PHP_EOL, '', $e).'"');
         }

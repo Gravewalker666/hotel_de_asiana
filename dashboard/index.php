@@ -320,72 +320,8 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- Add/edit table food_order -->
-                <div class="col-4 bg-white p-4 rounded-xl mt-5 mr-5" id="form-food_order">
-                    <h4>
-                        <?php 
-                            if (isset($_GET['edit-food_order'])) {
-                                $id = $_GET['edit-food_order'];
-                                $result = $conn->query('SELECT * FROM food_order WHERE id='.$id);
-                                $food_order = $result->fetch();
-                                echo "Edit";
-                            } else {
-                                echo "Add new order";
-                            }
-                        ?>
-                    </h4>
-                    <form class="py-2" action="dashboard/process.php" method="POST">
-                    <label class="mt-1">Guest ID</label>
-                        <input
-                            <?php
-                                if (isset($_GET['edit-food_order'])) {
-                            ?>
-                                value="<?php echo $food_order['guest_id']?>"
-                            <?php
-                                }
-                            ?>
-                            type="input" name="guest_id" class="form-control rounded-xl form-input" 
-                        />
-                        <label class="mt-1">Food ID</label>
-                        <input
-                            <?php
-                                if (isset($_GET['edit-food_order'])) {
-                            ?>
-                                value="<?php echo $food_order['food_id']?>"
-                            <?php
-                                }
-                            ?>
-                            type="input" name="food_id" class="form-control rounded-xl form-input" 
-                        />
-                        <label class="mt-1">Date</label>
-                        <input
-                            <?php
-                                if (isset($_GET['edit-food_order'])) {
-                            ?>
-                                value="<?php echo $food_order['date']?>"
-                            <?php
-                                }
-                            ?>
-                            type="input" name="date" class="form-control rounded-xl form-input" 
-                        />
-                        <br>
-                        <input
-                            type="submit"
-                            <?php 
-                                if (isset($_GET['edit-food_order'])) {
-                                    echo 'name="edit-food_order"';
-                                    echo 'value="Save"';
-                                } else {
-                                    echo 'name="add-food_order"';
-                                    echo 'value="Add"';
-                                }
-                            ?>
-                            class="btn btn-warning text-white font-weight-bold rounded-xl py-1"
-                        />
-                    </form>
-                </div>
                 <!-- Print table food_order -->
-                <div class="col-6 bg-white p-4 rounded-xl mt-5 mr-5" id="table-food_order">
+                <div class="col-6 bg-white p-4 rounded-xl mt-5 mr-5" id="table-food-order">
                     <h4>Food Order</h4>
                     <table class="table table-borderless w-100">
                         <thead>
@@ -408,7 +344,7 @@
                                         <td>
                                             <a 
                                                 class="text-decoration-none text-muted" 
-                                                href="../dashboard?edit-food_order=<?php echo $row['guest_id']?>#form-food_order"
+                                                href="../dashboard?edit-food-order=true&guest=<?php echo $row['guest_id']?>&food=<?php echo $row['food_id']?>&date=<?php echo $row['date']?>#form-food-order"
                                             >
                                                 Edit
                                             </a>
@@ -416,7 +352,7 @@
                                         <td>
                                             <a 
                                                 class="text-decoration-none text-muted" 
-                                                href="../dashboard/process.php?delete=true&guest_id=<?php echo $row['guest_id']?>&food_id=<?php echo $row['food_id']?>&date=<?php echo $row['date']?>&table=food_order&field=guest_id"
+                                                href="../dashboard/process.php?delete-food-order=true&guest=<?php echo $row['guest_id']?>&food=<?php echo $row['food_id']?>&date=<?php echo $row['date']?>"
                                             >
                                                 Delete
                                             </a>
@@ -430,6 +366,92 @@
                         ?>
                         </tbody>
                     </table>
+                </div>
+                <!-- Add/edit table food_order -->
+                <div class="col-4 bg-white p-4 rounded-xl mt-5 mr-5" id="form-food-order">
+                    <h4>
+                        <?php 
+                            if (isset($_GET['edit-food-order'])) {
+                                echo "Edit order";
+                            } else {
+                                echo "Order food";
+                            }
+                        ?>
+                    </h4>
+                    <form class="py-2" action="dashboard/process.php" method="POST">
+                        <label class="mt-1">Guest</label>
+                        <div class="form-select">
+                            <select name="guest" class="form-control select">
+                                <?php 
+                                    $guestResult = $conn->query('SELECT * FROM individual');
+                                    while($guest = $guestResult->fetch()) {
+                                ?>
+                                <option value="<?php echo $guest['guest_id']?>"
+                                    <?php if (isset($_GET['edit-food-order']) && $_GET['guest'] == $guest['guest_id']) echo 'selected'?>>
+                                    <?php echo $guest['name']?>
+                                </option>  
+                                <?php 
+                                    }
+                                ?>
+                                <?php 
+                                    $guestResult = $conn->query('SELECT * FROM family');
+                                    while($guest = $guestResult->fetch()) {
+                                ?>
+                                <option value="<?php echo $guest['guest_id']?>"
+                                    <?php if (isset($_GET['edit-food-order']) && $_GET['guest'] == $guest['guest_id']) echo 'selected'?>>
+                                    <?php echo $guest['head_name']?>
+                                </option>  
+                                <?php 
+                                    }
+                                ?>
+                                <?php 
+                                    $guestResult = $conn->query('SELECT * FROM company');
+                                    while($guest = $guestResult->fetch()) {
+                                ?>
+                                <option value="<?php echo $guest['guest_id']?>"
+                                    <?php if (isset($_GET['edit-food-order']) && $_GET['guest'] == $guest['guest_id']) echo 'selected'?>>
+                                    <?php echo $guest['name']?>
+                                </option>  
+                                <?php 
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                        <label class="mt-1">Food</label>
+                        <div class="form-select">
+                            <select name="food" class="form-control select">
+                                <?php 
+                                    $foodResult = $conn->query('SELECT * FROM food');
+                                    while($food = $foodResult->fetch()) {
+                                ?>
+                                <option value="<?php echo $food['id']?>"
+                                    <?php if (isset($_GET['edit-food-order']) && $_GET['food'] == $food['id']) echo 'selected'?>>
+                                    <?php echo $food['name']?>
+                                </option>  
+                                <?php 
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                        <?php if(isset($_GET['edit-food-order'])) { ?>
+                        <label>Date</label>
+                        <input value="<?php echo $_GET['date']?>" type="input" name="date" class="form-control rounded-xl form-input" readonly/>
+                        <?php } ?>
+                        <br>
+                        <input
+                            type="submit"
+                            <?php 
+                                if (isset($_GET['edit-food-order'])) {
+                                    echo 'name="edit-food-order"';
+                                    echo 'value="Save"';
+                                } else {
+                                    echo 'name="add-food-order"';
+                                    echo 'value="Add"';
+                                }
+                            ?>
+                            class="btn btn-warning text-white font-weight-bold rounded-xl py-1"
+                        />
+                    </form>
                 </div>
                 <!-- Show view facility_view -->
                 <div class="col-9 bg-white p-4 rounded-xl mt-5 mr-5">
@@ -468,7 +490,6 @@
                         </tbody>
                     </table>
                 </div>
-<<<<<<< HEAD
                 <!-- Add/edit table company -->
                 <div class="col-3 bg-white p-4 rounded-xl mt-5 mr-5" id="form-company">
                     <h4>
@@ -719,12 +740,6 @@
                 </div>
                 <div class="col-5 bg-white p-4 rounded-xl mt-5 mr-5" id="table-company">
                     <h4>Company</h4>
-=======
-                <!-- Print table guest -->
-                <div class="col-6 bg-white p-4 rounded-xl mr-5">
-                    <h4>Guest</h4>
-                    <h5>Company</h5>
->>>>>>> a5a38b15d2e41004f9b95b7e28dda390f819c3bf
                     <table class="table table-borderless w-100">
                         <thead>
                             <tr>
@@ -748,16 +763,11 @@
                                         <td>
                                             <a 
                                                 class="text-decoration-none text-muted" 
-<<<<<<< HEAD
                                                 href="../dashboard?edit-company=<?php echo $row['id']?>#form-company"
-=======
-                                                href="../dashboard?edit-room=<?php echo $row['no']?>"
->>>>>>> a5a38b15d2e41004f9b95b7e28dda390f819c3bf
                                             >
                                                 Edit
                                             </a>
                                         </td>
-<<<<<<< HEAD
                                     </tr>
                         <?php
                                 }
@@ -836,14 +846,6 @@
                                                 href="../dashboard?edit-family=<?php echo $row['guest_id']?>#form-family"
                                             >
                                                 Edit
-=======
-                                        <td>
-                                            <a 
-                                                class="text-decoration-none text-muted" 
-                                                href="../dashboard/process.php?delete=true&id=<?php echo $row['no']?>&table=room&field=no"
-                                            >
-                                                Delete
->>>>>>> a5a38b15d2e41004f9b95b7e28dda390f819c3bf
                                             </a>
                                         </td>
                                     </tr>
