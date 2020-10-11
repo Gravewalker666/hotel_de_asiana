@@ -468,6 +468,7 @@
                         </tbody>
                     </table>
                 </div>
+<<<<<<< HEAD
                 <!-- Add/edit table company -->
                 <div class="col-3 bg-white p-4 rounded-xl mt-5 mr-5" id="form-company">
                     <h4>
@@ -718,6 +719,12 @@
                 </div>
                 <div class="col-5 bg-white p-4 rounded-xl mt-5 mr-5" id="table-company">
                     <h4>Company</h4>
+=======
+                <!-- Print table guest -->
+                <div class="col-6 bg-white p-4 rounded-xl mr-5">
+                    <h4>Guest</h4>
+                    <h5>Company</h5>
+>>>>>>> a5a38b15d2e41004f9b95b7e28dda390f819c3bf
                     <table class="table table-borderless w-100">
                         <thead>
                             <tr>
@@ -741,11 +748,16 @@
                                         <td>
                                             <a 
                                                 class="text-decoration-none text-muted" 
+<<<<<<< HEAD
                                                 href="../dashboard?edit-company=<?php echo $row['id']?>#form-company"
+=======
+                                                href="../dashboard?edit-room=<?php echo $row['no']?>"
+>>>>>>> a5a38b15d2e41004f9b95b7e28dda390f819c3bf
                                             >
                                                 Edit
                                             </a>
                                         </td>
+<<<<<<< HEAD
                                     </tr>
                         <?php
                                 }
@@ -824,6 +836,14 @@
                                                 href="../dashboard?edit-family=<?php echo $row['guest_id']?>#form-family"
                                             >
                                                 Edit
+=======
+                                        <td>
+                                            <a 
+                                                class="text-decoration-none text-muted" 
+                                                href="../dashboard/process.php?delete=true&id=<?php echo $row['no']?>&table=room&field=no"
+                                            >
+                                                Delete
+>>>>>>> a5a38b15d2e41004f9b95b7e28dda390f819c3bf
                                             </a>
                                         </td>
                                     </tr>
