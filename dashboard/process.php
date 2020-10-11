@@ -63,6 +63,28 @@
             header('Location: ../dashboard?error="'.str_replace(PHP_EOL, '', $e).'"');
         }
     }
+    if (isset($_POST['add-food_order'])) {
+        $guest_id = $_POST['guest_id'];
+        $food_id = $_POST['food_id'];
+        $date = $_POST['date'];
+        try {
+            $conn->exec("INSERT INTO food_order(guest_id, food_id, date) VALUES ('$guest_id', '$food_id', '$date')");
+            header('Location: ../dashboard#table-food_order');
+        }catch (PDOException $e) {
+            header('Location: ../dashboard?error="'.str_replace(PHP_EOL, '', $e).'"');
+        }
+    }
+    if (isset($_POST['edit-food_order'])) {
+        $guest_id = $_POST['guest_id'];
+        $food_id = $_POST['food_id'];
+        $date = $_POST['date'];
+        try {
+            $conn->exec("UPDATE food SET guest_id='$guest_id', food_id='$food_id', date='$date' WHERE guest_id=$guest_id and food_id=$food_id and date=$date");
+            header('Location: ../dashboard#table-food_order');
+        }catch (PDOException $e) {
+            header('Location: ../dashboard?error="'.str_replace(PHP_EOL, '', $e).'"');
+        }
+    }
     if (isset($_POST['add-company'])) {
         $name = $_POST['name'];
         $billing_address = $_POST['billing_address'];

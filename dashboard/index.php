@@ -320,6 +320,117 @@
                         </tbody>
                     </table>
                 </div>
+                <!-- Add/edit table food_order -->
+                <div class="col-4 bg-white p-4 rounded-xl mt-5 mr-5" id="form-food_order">
+                    <h4>
+                        <?php 
+                            if (isset($_GET['edit-food_order'])) {
+                                $id = $_GET['edit-food_order'];
+                                $result = $conn->query('SELECT * FROM food_order WHERE id='.$id);
+                                $food_order = $result->fetch();
+                                echo "Edit";
+                            } else {
+                                echo "Add new order";
+                            }
+                        ?>
+                    </h4>
+                    <form class="py-2" action="dashboard/process.php" method="POST">
+                    <label class="mt-1">Guest ID</label>
+                        <input
+                            <?php
+                                if (isset($_GET['edit-food_order'])) {
+                            ?>
+                                value="<?php echo $food_order['guest_id']?>"
+                            <?php
+                                }
+                            ?>
+                            type="input" name="guest_id" class="form-control rounded-xl form-input" 
+                        />
+                        <label class="mt-1">Food ID</label>
+                        <input
+                            <?php
+                                if (isset($_GET['edit-food_order'])) {
+                            ?>
+                                value="<?php echo $food_order['food_id']?>"
+                            <?php
+                                }
+                            ?>
+                            type="input" name="food_id" class="form-control rounded-xl form-input" 
+                        />
+                        <label class="mt-1">Date</label>
+                        <input
+                            <?php
+                                if (isset($_GET['edit-food_order'])) {
+                            ?>
+                                value="<?php echo $food_order['date']?>"
+                            <?php
+                                }
+                            ?>
+                            type="input" name="date" class="form-control rounded-xl form-input" 
+                        />
+                        <br>
+                        <input
+                            type="submit"
+                            <?php 
+                                if (isset($_GET['edit-food_order'])) {
+                                    echo 'name="edit-food_order"';
+                                    echo 'value="Save"';
+                                } else {
+                                    echo 'name="add-food_order"';
+                                    echo 'value="Add"';
+                                }
+                            ?>
+                            class="btn btn-warning text-white font-weight-bold rounded-xl py-1"
+                        />
+                    </form>
+                </div>
+                <!-- Print table food_order -->
+                <div class="col-6 bg-white p-4 rounded-xl mt-5 mr-5" id="table-food_order">
+                    <h4>Food Order</h4>
+                    <table class="table table-borderless w-100">
+                        <thead>
+                            <tr>
+                                <th scope="col">Guest ID</th>
+                                <th scope="col">Food ID</th>
+                                <th scope="col">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                            $result = $conn->query('SELECT * FROM food_order');
+                            if ($result) {
+                                while($row = $result->fetch()) {
+                        ?>
+                                    <tr>
+                                        <th><?php echo $row['guest_id'] ?></th>
+                                        <td><?php echo $row['food_id'] ?></td>
+                                        <td><?php echo $row['date'] ?></td>
+                                        <td>
+                                            <a 
+                                                class="text-decoration-none text-muted" 
+                                                href="../dashboard?edit-food_order=<?php echo $row['guest_id']?>#form-food_order"
+                                            >
+                                                Edit
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a 
+                                                class="text-decoration-none text-muted" 
+                                                href="../dashboard/process.php?delete=true&guest_id=<?php echo $row['guest_id']?>&food_id=<?php echo $row['food_id']?>&date=<?php echo $row['date']?>&table=food_order&field=guest_id"
+                                            >
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                        <?php
+                                }
+                            }else {
+                                echo "Bad request, access denied to access food data";
+                            }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
                 <!-- Show view facility_view -->
                 <div class="col-9 bg-white p-4 rounded-xl mt-5 mr-5">
                     <h4>Facilities</h4>
