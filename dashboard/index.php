@@ -30,9 +30,101 @@
             </h6>
             <hr class="mx-5">
             <div class="ml-5">
-                <div class="my-1 text-muted-light">
-                    <i class="fas fa-cog"></i> &nbsp; Help
+                <div class="my-1">
+                    <a href="../dashboard?help=true" 
+                        class="text-decoration-none text-muted-light"
+                    >
+                        <i class="fas fa-question"></i> &nbsp; Help
+                    </a>
                 </div>
+                <?php 
+                    if (isset($_GET['help'])) {
+                        if ($_SESSION['user'] == 'manager') {
+                ?>
+                    <ul>
+                        <li>Read Only</li>
+                        <ol>
+                            <li>Facility View</li>
+                        </ol>
+                        <li>Full Access</li>
+                        <ol>
+                            <li>Room</li>
+                            <li>Food</li>
+                            <li>Food-Order</li>
+                            <li>Guest</li>
+                        </ol>
+                    </ul>
+                <?php 
+                        } else if($_SESSION['user'] == 'receptionist') {
+                ?>
+                    <ul>
+                        <li>Read Only</li>
+                        <ol>
+                            <li>Room</li>
+                            <li>Food</li>
+                            <li>Food-Order</li>
+                            <li>Facility View</li>
+                        </ol>
+                        <li>Full Access</li>
+                        <ol>
+                            <li>Guest</li>
+                        </ol>
+                    </ul>
+                <?php 
+                        } else if($_SESSION['user'] == 'chef') {
+                ?>
+                    <ul>
+                        <li>Read Only</li>
+                        <ol>
+                            <li>Food-Order</li>
+                        </ol>
+                        <li>Full Access</li>
+                        <ol>
+                            <li>Food</li>
+                        </ol>
+                        <li>No Access</li>
+                        <ol>
+                            <li>Room</li>
+                            <li>Guest</li>
+                            <li>Facility View</li>
+                        </ol>
+                    </ul>
+                <?php 
+                        } else if($_SESSION['user'] == 'cleaning') {
+                ?>
+                    <ul>
+                        <li>No Access</li>
+                        <ol>
+                            <li>Room</li>
+                            <li>Food</li>
+                            <li>Food-Order</li>
+                            <li>Guest</li>
+                            <li>Facility View</li>
+                        </ol>
+                    </ul>
+                <?php 
+                        } else if($_SESSION['user'] == 'guest') {
+                ?>
+                    <ul>
+                        <li>Read Only</li>
+                        <ol>
+                            <li>Food</li>
+                            <li>Facility View</li>
+                        </ol>
+                        <li>Full Access</li>
+                        <ol>
+                            <li>Food Order</li>
+                        </ol>
+                        <li>No Access</li>
+                        <ol>
+                            <li>Room</li>
+                            <li>Guest</li>
+                        </ol>
+                    </ul>
+                <?php 
+                        }
+                    }
+                ?>
                 <div class="my-1">
                     <a href="../includes/logout.php" 
                         class="text-decoration-none text-muted-light"
@@ -328,7 +420,7 @@
                             <tr>
                                 <th scope="col">Guest ID</th>
                                 <th scope="col">Food ID</th>
-                                <th scope="col">Date</th>
+                                <th scope="col">Date Time</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -379,62 +471,28 @@
                         ?>
                     </h4>
                     <form class="py-2" action="dashboard/process.php" method="POST">
-                        <label class="mt-1">Guest</label>
-                        <div class="form-select">
-                            <select name="guest" class="form-control select">
-                                <?php 
-                                    $guestResult = $conn->query('SELECT * FROM individual');
-                                    while($guest = $guestResult->fetch()) {
-                                ?>
-                                <option value="<?php echo $guest['guest_id']?>"
-                                    <?php if (isset($_GET['edit-food-order']) && $_GET['guest'] == $guest['guest_id']) echo 'selected'?>>
-                                    <?php echo $guest['name']?>
-                                </option>  
-                                <?php 
-                                    }
-                                ?>
-                                <?php 
-                                    $guestResult = $conn->query('SELECT * FROM family');
-                                    while($guest = $guestResult->fetch()) {
-                                ?>
-                                <option value="<?php echo $guest['guest_id']?>"
-                                    <?php if (isset($_GET['edit-food-order']) && $_GET['guest'] == $guest['guest_id']) echo 'selected'?>>
-                                    <?php echo $guest['head_name']?>
-                                </option>  
-                                <?php 
-                                    }
-                                ?>
-                                <?php 
-                                    $guestResult = $conn->query('SELECT * FROM company');
-                                    while($guest = $guestResult->fetch()) {
-                                ?>
-                                <option value="<?php echo $guest['guest_id']?>"
-                                    <?php if (isset($_GET['edit-food-order']) && $_GET['guest'] == $guest['guest_id']) echo 'selected'?>>
-                                    <?php echo $guest['name']?>
-                                </option>  
-                                <?php 
-                                    }
-                                ?>
-                            </select>
-                        </div>
+                        <label class="mt-1">Guest Id</label>
+                        <input value="<?php if(isset($_GET['edit-food-order'])) echo $_GET['guest']?>" name="guest" type="input" class="form-control rounded-xl form-input"/>
                         <label class="mt-1">Food</label>
                         <div class="form-select">
                             <select name="food" class="form-control select">
                                 <?php 
                                     $foodResult = $conn->query('SELECT * FROM food');
-                                    while($food = $foodResult->fetch()) {
+                                    if ($foodResult) {
+                                        while($food = $foodResult->fetch()) {
                                 ?>
                                 <option value="<?php echo $food['id']?>"
                                     <?php if (isset($_GET['edit-food-order']) && $_GET['food'] == $food['id']) echo 'selected'?>>
                                     <?php echo $food['name']?>
                                 </option>  
                                 <?php 
+                                        }
                                     }
                                 ?>
                             </select>
                         </div>
                         <?php if(isset($_GET['edit-food-order'])) { ?>
-                        <label>Date</label>
+                        <label>Date Time</label>
                         <input value="<?php echo $_GET['date']?>" type="input" name="date" class="form-control rounded-xl form-input" readonly/>
                         <?php } ?>
                         <br>
