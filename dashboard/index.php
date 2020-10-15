@@ -790,7 +790,7 @@
                         <?php
                                 }
                             }else {
-                                echo "Bad request, access denied to access company data";
+                                echo "Bad request, access denied to access guest data";
                             }
                         ?>
                         </tbody>
@@ -870,7 +870,7 @@
                         <?php
                                 }
                             }else {
-                                echo "Bad request, access denied to access company data";
+                                echo "Bad request, access denied to access individual data";
                             }
                         ?>
                         </tbody>
@@ -889,7 +889,7 @@
                         </thead>
                         <tbody>
                         <?php
-                            $result = $conn->query('SELECT * FROM Family');
+                            $result = $conn->query('SELECT * FROM family');
                             if ($result) {
                                 while($row = $result->fetch()) {
                         ?>
@@ -910,7 +910,7 @@
                         <?php
                                 }
                             }else {
-                                echo "Bad request, access denied to access company data";
+                                echo "Bad request, access denied to access family data";
                             }
                         ?>
                         </tbody>
